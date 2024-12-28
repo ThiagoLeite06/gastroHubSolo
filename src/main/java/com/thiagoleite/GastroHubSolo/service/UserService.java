@@ -1,6 +1,7 @@
 package com.thiagoleite.GastroHubSolo.service;
 
 import com.thiagoleite.GastroHubSolo.config.UserMapper;
+import com.thiagoleite.GastroHubSolo.dto.UserRequestDto;
 import com.thiagoleite.GastroHubSolo.dto.UserResponseDto;
 import com.thiagoleite.GastroHubSolo.model.User;
 import com.thiagoleite.GastroHubSolo.repository.UserRepository;
@@ -22,5 +23,10 @@ public class UserService {
     public Page<UserResponseDto> getAll(Pageable pageable) {
         Page<User> users = userRepository.findAll(pageable);
         return users.map(userMapper::toDto);
+    }
+
+    public User create(UserRequestDto userRequestDto) {
+        User user = userMapper.toEntity(userRequestDto);
+        return userRepository.save(user);
     }
 }
