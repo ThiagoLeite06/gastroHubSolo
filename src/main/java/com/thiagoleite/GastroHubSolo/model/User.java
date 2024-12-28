@@ -3,15 +3,14 @@ package com.thiagoleite.GastroHubSolo.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.*;
+import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
 import java.util.Date;
 
 
 @Entity
-@Getter
-@Setter
+@Data
 @Table(name = "users")
 public class User {
     @Id
@@ -29,14 +28,14 @@ public class User {
 
     @NotBlank(message = "O login é obrigatório")
     @Pattern(regexp = "^[a-zA-Z0-9._-]{3,20}$",
-             message = "Login deve conter apenas letras, números e os caracteres . _ -")
+            message = "Login deve conter apenas letras, números e os caracteres . _ -")
     @Column(unique = true)
     private String login;
 
     @NotBlank(message = "A senha é obrigatória")
     @Length(min = 8, message = "A senha deve ter no mínimo 8 caracteres")
     @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$",
-             message = "A senha deve conter pelo menos uma letra e um número")
+            message = "A senha deve conter pelo menos uma letra e um número")
     private String password;
 
     @Column(name = "last_updated_at")
@@ -47,3 +46,4 @@ public class User {
     @Length(max = 200, message = "O endereço não pode ter mais que 200 caracteres")
     private String address;
 }
+
