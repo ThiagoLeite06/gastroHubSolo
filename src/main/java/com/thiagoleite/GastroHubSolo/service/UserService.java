@@ -8,10 +8,10 @@ import com.thiagoleite.GastroHubSolo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-
 public class UserService {
 
     @Autowired
@@ -19,7 +19,10 @@ public class UserService {
 
     @Autowired
     private UserMapper userMapper;
-    //Voltar e pedir detalhes
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public Page<UserResponseDto> getAll(Pageable pageable) {
         Page<User> users = userRepository.findAll(pageable);
         return users.map(userMapper::toDto);
@@ -27,6 +30,8 @@ public class UserService {
 
     public User create(UserRequestDto userRequestDto) {
         User user = userMapper.toEntity(userRequestDto);
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
         return userRepository.save(user);
     }
 }
