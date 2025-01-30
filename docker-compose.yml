@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   postgres:
     image: postgres:latest
@@ -13,5 +11,13 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  dbeaver:
+    image: dbeaver/cloudbeaver:latest
+    container_name: dbeaver
+    ports:
+      - "8978:8978"
+    depends_on:
+      - postgres
+
 volumes:
-  postgres_data:
+    postgres_data:
