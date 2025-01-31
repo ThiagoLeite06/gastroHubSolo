@@ -1,6 +1,5 @@
 package com.thiagoleite.GastroHubSolo.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
