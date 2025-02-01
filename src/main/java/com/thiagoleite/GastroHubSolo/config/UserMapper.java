@@ -2,7 +2,7 @@ package com.thiagoleite.GastroHubSolo.config;
 
 import com.thiagoleite.GastroHubSolo.dto.UserResponseDto;
 import com.thiagoleite.GastroHubSolo.dto.UserRequestDto;
-import com.thiagoleite.GastroHubSolo.model.User;
+import com.thiagoleite.GastroHubSolo.domain.entities.User;
 import org.mapstruct.Mapper;
 
 

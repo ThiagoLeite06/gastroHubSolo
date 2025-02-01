@@ -1,6 +1,5 @@
 package com.thiagoleite.GastroHubSolo.domain.entities;
 
-import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
@@ -8,9 +7,7 @@ import java.util.Date;
 
 @EqualsAndHashCode
 @Getter
-@Table(name = "users")
 public class User {
-
     private Long id;
     private String name;
     private String email;

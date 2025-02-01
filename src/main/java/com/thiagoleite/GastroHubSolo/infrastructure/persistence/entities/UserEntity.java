@@ -1,18 +1,16 @@
-package com.thiagoleite.GastroHubSolo.model;
+package com.thiagoleite.GastroHubSolo.infrastructure.persistence.entities;
 
-import jakarta.persistence.Entity;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
-import lombok.Data;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 
 import java.util.Date;
 
-
 @Entity
-@Data
 @Table(name = "users")
-public class User {
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,12 +23,6 @@ public class User {
     @Email(message = "Formato de email inválido")
     @Column(unique = true)
     private String email;
-
-    @NotBlank(message = "O login é obrigatório")
-    @Pattern(regexp = "^[a-zA-Z0-9._-]{3,20}$",
-            message = "Login deve conter apenas letras, números e os caracteres . _ -")
-    @Column(unique = true)
-    private String login;
 
     @NotBlank(message = "A senha é obrigatória")
     @Length(min = 8, message = "A senha deve ter no mínimo 8 caracteres")
@@ -46,4 +38,3 @@ public class User {
     @Length(max = 200, message = "O endereço não pode ter mais que 200 caracteres")
     private String address;
 }
-
