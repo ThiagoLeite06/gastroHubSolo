@@ -2,11 +2,13 @@ package com.thiagoleite.GastroHubSolo.domain.entities;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 
 @EqualsAndHashCode
 @Getter
+@Setter
 public class User {
     private Long id;
     private String name;
@@ -21,6 +23,5 @@ public class User {
         this.email = email;
         this.password = password;
     }
-
 }
 
