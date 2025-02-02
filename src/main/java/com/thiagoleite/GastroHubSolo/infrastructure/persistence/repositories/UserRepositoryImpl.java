@@ -46,6 +46,7 @@ public class UserRepositoryImpl implements UserRepository {
         UserEntity entity = new UserEntity();
         entity.setId(user.getId());
         entity.setName(user.getName());
+        entity.setAddress(user.getAddress());
         entity.setEmail(user.getEmail());
         entity.setPassword(user.getPassword());
         return entity;
@@ -55,6 +56,7 @@ public class UserRepositoryImpl implements UserRepository {
         return new User(
                 entity.getId(),
                 entity.getName(),
+                entity.getAddress(),
                 entity.getEmail(),
                 entity.getPassword()
         );

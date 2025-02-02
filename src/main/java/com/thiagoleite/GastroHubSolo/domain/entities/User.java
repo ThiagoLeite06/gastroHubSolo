@@ -12,14 +12,15 @@ import java.util.Date;
 public class User {
     private Long id;
     private String name;
+    private String address;
     private String email;
     private String password;
     private Date lastUpdatedAt;
-    private String address;
 
-    public User(Long id, String name, String email, String password) {
+    public User(Long id, String name, String address, String email, String password) {
         this.id = id;
         this.name = name;
+        this.address = address;
         this.email = email;
         this.password = password;
     }
