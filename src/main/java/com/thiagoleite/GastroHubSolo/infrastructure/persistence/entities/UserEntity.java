@@ -34,6 +34,8 @@ public class UserEntity {
             message = "A senha deve conter pelo menos uma letra e um número")
     private String password;
 
+    private String role;
+
     @Column(name = "last_updated_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdatedAt;

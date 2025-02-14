@@ -1,7 +1,8 @@
-package com.thiagoleite.GastroHubSolo.domain.usecases;
+package com.thiagoleite.GastroHubSolo.application.services;
 
 import com.thiagoleite.GastroHubSolo.domain.entities.User;
 import com.thiagoleite.GastroHubSolo.domain.repositories.UserRepository;
+import com.thiagoleite.GastroHubSolo.domain.usecases.UpdateUserUseCase;
 import org.springframework.stereotype.Service;
 
 @Service

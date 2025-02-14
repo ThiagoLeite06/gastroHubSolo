@@ -2,7 +2,9 @@ package com.thiagoleite.GastroHubSolo.infrastructure.persistence.repositories;
 
 import com.thiagoleite.GastroHubSolo.domain.entities.User;
 import com.thiagoleite.GastroHubSolo.domain.repositories.UserRepository;
+import com.thiagoleite.GastroHubSolo.infrastructure.mappers.UserMapper;
 import com.thiagoleite.GastroHubSolo.infrastructure.persistence.entities.UserEntity;
+
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -11,29 +13,32 @@ import java.util.stream.Collectors;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
-    private final JpaUserRepository jpaUserRepository;
 
-    public UserRepositoryImpl(JpaUserRepository jpaUserRepository) {
-        this.jpaUserRepository = jpaUserRepository;
+    private final JpaUserRepository jpaUserRepository;
+    private final UserMapper userMapper;
+
+    public UserRepositoryImpl(JpaUserRepository userRepository, UserMapper userMapper) {
+        this.jpaUserRepository = userRepository;
+        this.userMapper = userMapper;
     }
 
     @Override
     public User save(User user) {
-        UserEntity userEntity = toEntity(user);
-        UserEntity savedEntity = jpaUserRepository.save(userEntity);
-        return toDomain(savedEntity);
+        UserEntity entity = userMapper.toEntity(user);
+        UserEntity savedEntity = jpaUserRepository.save(entity);
+        return userMapper.toUser(savedEntity);
     }
 
     @Override
     public Optional<User> findById(Long id) {
         return jpaUserRepository.findById(id)
-                .map(this::toDomain);
+                .map(userMapper::toUser);
     }
 
     @Override
     public List<User> findAll() {
         return jpaUserRepository.findAll().stream()
-                .map(this::toDomain)
+                .map(userMapper::toUser)
                 .collect(Collectors.toList());
     }
 
@@ -42,23 +47,9 @@ public class UserRepositoryImpl implements UserRepository {
         jpaUserRepository.deleteById(id);
     }
 
-    private UserEntity toEntity(User user) {
-        UserEntity entity = new UserEntity();
-        entity.setId(user.getId());
-        entity.setName(user.getName());
-        entity.setAddress(user.getAddress());
-        entity.setEmail(user.getEmail());
-        entity.setPassword(user.getPassword());
-        return entity;
-    }
-
-    private User toDomain(UserEntity entity) {
-        return new User(
-                entity.getId(),
-                entity.getName(),
-                entity.getAddress(),
-                entity.getEmail(),
-                entity.getPassword()
-        );
+    @Override
+    public Optional<User> findByEmail(String email) {
+       return jpaUserRepository.findByEmail(email)
+               .map(userMapper::toUser);
     }
 }
