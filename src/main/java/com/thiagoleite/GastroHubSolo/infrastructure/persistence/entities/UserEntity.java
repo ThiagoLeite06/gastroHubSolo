@@ -19,19 +19,13 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "O nome é obrigatório")
-    @Length(min = 3, max = 50, message = "O nome deve ter entre 3 e 50 caracteres")
+    @Column(nullable = false, length = 50)
     private String name;
 
-    @NotBlank(message = "O email é obrigatório")
-    @Email(message = "Formato de email inválido")
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
 
-    @NotBlank(message = "A senha é obrigatória")
-    @Length(min = 8, message = "A senha deve ter no mínimo 8 caracteres")
-    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$",
-            message = "A senha deve conter pelo menos uma letra e um número")
+    @Column(nullable = false)
     private String password;
 
     private String role;
@@ -40,7 +34,8 @@ public class UserEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdatedAt;
 
-    @NotBlank(message = "O endereço é obrigatório")
-    @Length(max = 200, message = "O endereço não pode ter mais que 200 caracteres")
+    @Column(nullable = false, length = 200)
     private String address;
+
+    public UserEntity() {}
 }
