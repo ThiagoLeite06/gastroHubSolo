@@ -1,13 +1,15 @@
-package com.thiagoleite.GastroHubSolo.dto;
+package com.thiagoleite.GastroHubSolo.application.dtos;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
-@Data
-public class UserRequestDto {
+@Getter
+@Setter
+public class CreateUserDTO {
     @NotBlank(message = "O nome é obrigatório")
     @Length(min = 3, max = 50, message = "O nome deve ter entre 3 e 50 caracteres")
     private String name;
@@ -15,11 +17,6 @@ public class UserRequestDto {
     @NotBlank(message = "O email é obrigatório")
     @Email(message = "Formato de email inválido")
     private String email;
-
-    @NotBlank(message = "O login é obrigatório")
-    @Pattern(regexp = "^[a-zA-Z0-9._-]{3,20}$",
-            message = "Login deve conter apenas letras, números e os caracteres . _ -")
-    private String login;
 
     @NotBlank(message = "A senha é obrigatória")
     @Length(min = 8, message = "A senha deve ter no mínimo 8 caracteres")
