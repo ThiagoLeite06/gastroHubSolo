@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.naming.AuthenticationException;
 import java.util.List;
 
 @RestController
@@ -63,19 +62,5 @@ public class UserController {
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = getUserUseCase.getAll();
         return ResponseEntity.ok(users);
-    }
-
-    @PostMapping("/{id}/change-password")
-    public ResponseEntity<Void> changePassword(
-            @PathVariable Long id,
-            @Valid @RequestBody ChangePasswordRequestDTO request) {
-        try {
-            changePasswordUseCase.execute(id, request.getCurrentPassword(), request.getNewPassword());
-            return ResponseEntity.ok().build();
-        } catch (AuthenticationException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        } catch (ResourceNotFoundException e) {
-            return ResponseEntity.notFound().build();
-        }
     }
 }
