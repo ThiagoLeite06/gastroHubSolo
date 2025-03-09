@@ -3,6 +3,7 @@ package com.thiagoleite.GastroHubSolo.presentation.controllers;
 import com.thiagoleite.GastroHubSolo.application.dtos.AuthResponseDTO;
 import com.thiagoleite.GastroHubSolo.application.dtos.CreateUserDTO;
 import com.thiagoleite.GastroHubSolo.application.dtos.LoginRequestDTO;
+import com.thiagoleite.GastroHubSolo.application.services.RegisterUserUseCase;
 import com.thiagoleite.GastroHubSolo.domain.usecases.AuthenticateUserUseCase;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -10,8 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")

@@ -12,6 +12,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 @Component
 public class RegisterUserUseCase {
 
@@ -41,6 +43,9 @@ public class RegisterUserUseCase {
         user.setName(createUserDTO.getName());
         user.setEmail(createUserDTO.getEmail());
         user.setPassword(passwordEncoder.encode(createUserDTO.getPassword()));
+        user.setRole("USER");
+        user.setLastUpdatedAt(new Date());
+        user.setAddress(createUserDTO.getAddress());
 
         User savedUser = userRepository.save(user);
 

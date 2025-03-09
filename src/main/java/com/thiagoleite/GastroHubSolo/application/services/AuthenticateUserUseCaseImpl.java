@@ -15,14 +15,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AuthenticateUserUserUseCaseImpl implements AuthenticateUserUseCase {
+public class AuthenticateUserUseCaseImpl implements AuthenticateUserUseCase {
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
     private final JwtTokenProvider tokenProvider;
 
-    public AuthenticateUserUserUseCaseImpl(AuthenticationManager authenticationManager,
-                                   UserRepository userRepository,
-                                   JwtTokenProvider tokenProvider) {
+    public AuthenticateUserUseCaseImpl(AuthenticationManager authenticationManager,
+                                       UserRepository userRepository,
+                                       JwtTokenProvider tokenProvider) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.tokenProvider = tokenProvider;
