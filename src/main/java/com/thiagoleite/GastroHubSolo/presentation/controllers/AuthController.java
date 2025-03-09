@@ -1,45 +1,38 @@
 package com.thiagoleite.GastroHubSolo.presentation.controllers;
 
+import com.thiagoleite.GastroHubSolo.application.dtos.AuthResponseDTO;
+import com.thiagoleite.GastroHubSolo.application.dtos.CreateUserDTO;
 import com.thiagoleite.GastroHubSolo.application.dtos.LoginRequestDTO;
-import com.thiagoleite.GastroHubSolo.application.dtos.LoginResponseDTO;
-import com.thiagoleite.GastroHubSolo.domain.entities.User;
 import com.thiagoleite.GastroHubSolo.domain.usecases.AuthenticateUserUseCase;
-import com.thiagoleite.GastroHubSolo.infrastructure.mappers.UserMapper;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.naming.AuthenticationException;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
-    private final AuthenticateUserUseCase authenticateUserUseCase;
-    private final UserMapper userMapper;
 
-    public AuthController(AuthenticateUserUseCase authenticateUserUseCase, UserMapper userMapper) {
+    private final AuthenticateUserUseCase authenticateUserUseCase;
+    private final RegisterUserUseCase registerUserUseCase;
+
+    public AuthController(AuthenticateUserUseCase authenticateUserUseCase,
+                          RegisterUserUseCase registerUserUseCase) {
         this.authenticateUserUseCase = authenticateUserUseCase;
-        this.userMapper = userMapper;
+        this.registerUserUseCase = registerUserUseCase;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> login(@Valid @RequestBody LoginRequestDTO loginRequest) {
-        User authenticatedUser = authenticateUserUseCase.execute(
-                loginRequest.getEmail(),
-                loginRequest.getPassword()
-        );
+    public ResponseEntity<AuthResponseDTO> login(@Valid @RequestBody LoginRequestDTO loginRequestDto) {
+        return ResponseEntity.ok(authenticateUserUseCase.execute(loginRequestDto));
+    }
 
-        LoginResponseDTO response = new LoginResponseDTO();
-        response.setUserId(authenticatedUser.getId());
-        response.setName(authenticatedUser.getName());
-        response.setEmail(authenticatedUser.getEmail());
-        response.setRole(authenticatedUser.getRole());
-        // response.setToken("jwt-token-here"); // Para implementação futura
-
-        return ResponseEntity.ok(response);
+    @PostMapping("/register")
+    public ResponseEntity<AuthResponseDTO> register(@Valid @RequestBody CreateUserDTO createUserDTO) {
+        return ResponseEntity.ok(registerUserUseCase.execute(createUserDTO));
     }
 }
