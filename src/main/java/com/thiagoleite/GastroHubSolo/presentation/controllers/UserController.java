@@ -1,10 +1,11 @@
 package com.thiagoleite.GastroHubSolo.presentation.controllers;
 
+import com.thiagoleite.GastroHubSolo.application.dtos.ChangePasswordRequestDTO;
 import com.thiagoleite.GastroHubSolo.domain.entities.User;
-import com.thiagoleite.GastroHubSolo.domain.usecases.CreateUserUseCase;
-import com.thiagoleite.GastroHubSolo.domain.usecases.DeleteUserUseCase;
-import com.thiagoleite.GastroHubSolo.domain.usecases.GetUserUseCase;
-import com.thiagoleite.GastroHubSolo.domain.usecases.UpdateUserUseCase;
+import com.thiagoleite.GastroHubSolo.domain.exceptions.ResourceNotFoundException;
+import com.thiagoleite.GastroHubSolo.domain.usecases.*;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,17 +18,20 @@ public class UserController {
     private final UpdateUserUseCase updateUserUseCase;
     private final DeleteUserUseCase deleteUserUseCase;
     private final GetUserUseCase getUserUseCase;
+    private final ChangePasswordUseCase changePasswordUseCase;
 
     public UserController(
             CreateUserUseCase createUserUseCase,
             UpdateUserUseCase updateUserUseCase,
             DeleteUserUseCase deleteUserUseCase,
-            GetUserUseCase getUserUseCase
+            GetUserUseCase getUserUseCase,
+            ChangePasswordUseCase changePasswordUseCase
     ) {
         this.createUserUseCase = createUserUseCase;
         this.updateUserUseCase = updateUserUseCase;
         this.deleteUserUseCase = deleteUserUseCase;
         this.getUserUseCase = getUserUseCase;
+        this.changePasswordUseCase = changePasswordUseCase;
     }
 
     @PostMapping
