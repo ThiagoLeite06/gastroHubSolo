@@ -1,13 +1,13 @@
 services:
   postgres:
     image: postgres:latest
-    container_name: gastrohubsolo-api-postgres
+    container_name: gastrohubsolo-postgres
     environment:
-      POSTGRES_DB: gastrohubsolodb
+      POSTGRES_DB: gastrohubsolo
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-      - "5433:5432"
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
