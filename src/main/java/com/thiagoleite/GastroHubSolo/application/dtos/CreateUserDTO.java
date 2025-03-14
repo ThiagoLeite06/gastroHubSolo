@@ -2,6 +2,7 @@ package com.thiagoleite.GastroHubSolo.application.dtos;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,4 +28,7 @@ public class CreateUserDTO {
     @NotBlank(message = "O endereço é obrigatório")
     @Length(max = 200, message = "O endereço não pode ter mais que 200 caracteres")
     private String address;
+
+    @NotNull(message = "O tipo de usuário é obrigatório")
+    private Long userTypeId;
 }

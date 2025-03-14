@@ -43,11 +43,11 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/h2-console/**").permitAll()
+                        .requestMatchers("/api/user-types/**").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                // Substituição para o headers.frameOptions().disable() obsoleto
+
                 .headers(headers ->
                         headers.frameOptions(frameOptions -> frameOptions.sameOrigin())
                 )
