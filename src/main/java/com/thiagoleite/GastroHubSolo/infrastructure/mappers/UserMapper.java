@@ -7,6 +7,7 @@ import com.thiagoleite.GastroHubSolo.domain.entities.UserType;
 import com.thiagoleite.GastroHubSolo.domain.exceptions.ResourceNotFoundException;
 import com.thiagoleite.GastroHubSolo.domain.repositories.UserTypeRepository;
 import com.thiagoleite.GastroHubSolo.infrastructure.persistence.entities.UserEntity;
+import com.thiagoleite.GastroHubSolo.infrastructure.persistence.entities.UserTypeEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,25 +15,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserMapper {
     private final ModelMapper modelMapper;
-    private final UserTypeRepository userTypeRepository;
-
 
     @Autowired
-    public UserMapper(ModelMapper modelMapper, UserTypeRepository userTypeRepository) {
+    public UserMapper(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
-        this.userTypeRepository = userTypeRepository;
     }
 
     // DTO -> Domain
     public User toUser(CreateUserDTO dto) {
         User user = modelMapper.map(dto, User.class);
-
-        if (dto.getUserTypeId() != null) {
-            UserType userType = userTypeRepository.findById(dto.getUserTypeId())
-                    .orElseThrow(() -> new ResourceNotFoundException("Tipo de usuário não encontrado"));
-            user.setUserType(userType);
-        }
-
         return user;
     }
 
@@ -43,7 +34,15 @@ public class UserMapper {
 
     // Domain -> Entity
     public UserEntity toEntity(User user) {
-        return modelMapper.map(user, UserEntity.class);
+        UserEntity entity = modelMapper.map(user, UserEntity.class);
+
+        if (user.getUserType() != null) {
+            UserTypeEntity userTypeEntity = new UserTypeEntity();
+            userTypeEntity.setId(user.getUserType().getId());
+            entity.setUserType(userTypeEntity);
+        }
+
+        return entity;
     }
 
     // Entity -> Domain

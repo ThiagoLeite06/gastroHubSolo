@@ -44,10 +44,6 @@ public class RegisterUserUseCase {
             throw new RuntimeException("Email já está em uso");
         }
 
-        UserType userType = userTypeRepository.findById(createUserDTO.getUserTypeId())
-                .orElseThrow(() -> new ResourceNotFoundException("Tipo de usuário não encontrado"));
-
-
         User user = new User();
         user.setName(createUserDTO.getName());
         user.setEmail(createUserDTO.getEmail());
@@ -55,7 +51,12 @@ public class RegisterUserUseCase {
         user.setRole("USER");
         user.setLastUpdatedAt(new Date());
         user.setAddress(createUserDTO.getAddress());
-        user.setUserType(userType);
+
+        if (createUserDTO.getUserTypeId() != null) {
+            UserType userType = userTypeRepository.findById(createUserDTO.getUserTypeId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Tipo de usuário não encontrado"));
+            user.setUserType(userType);
+        }
 
         User savedUser = userRepository.save(user);
 
