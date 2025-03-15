@@ -17,6 +17,7 @@ public class User {
     private String role;
     private Date lastUpdatedAt;
     private String address;
+    private UserType userType;
 
     public User() {}
 
