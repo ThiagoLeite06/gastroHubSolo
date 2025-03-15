@@ -17,7 +17,7 @@ public class JwtTokenProvider {
     @Value("${app.jwt-secret:defaultSecretKey12345678901234567890}")
     private String jwtSecret;
 
-    @Value("${app.jwt-expiration-milliseconds:86400000}")
+    @Value("${app.jwt-expiration-milliseconds:604800000}")
     private long jwtExpirationMs;
 
     public String generateToken(Authentication authentication) {
@@ -57,7 +57,20 @@ public class JwtTokenProvider {
                     .parseClaimsJws(token);
 
             return true;
+        } catch (ExpiredJwtException e) {
+            System.err.println("Token expirado: " + e.getMessage());
+            return false;
+        } catch (UnsupportedJwtException e) {
+            System.err.println("Token não suportado: " + e.getMessage());
+            return false;
+        } catch (MalformedJwtException e) {
+            System.err.println("Token malformado: " + e.getMessage());
+            return false;
+        } catch (SecurityException e) {
+            System.err.println("Assinatura inválida: " + e.getMessage());
+            return false;
         } catch (Exception e) {
+            System.err.println("Erro desconhecido no token: " + e.getMessage());
             return false;
         }
     }

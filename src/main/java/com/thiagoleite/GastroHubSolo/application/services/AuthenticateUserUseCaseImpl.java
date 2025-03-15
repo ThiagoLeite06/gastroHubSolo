@@ -29,30 +29,43 @@ public class AuthenticateUserUseCaseImpl implements AuthenticateUserUseCase {
     }
 
     public AuthResponseDTO execute(LoginRequestDTO loginRequestDto) {
-        // Autenticar usuário com Spring Security
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginRequestDto.getEmail(),
-                        loginRequestDto.getPassword()
-                )
-        );
+        try {
+            System.out.println("Tentando autenticar usuário: " + loginRequestDto.getEmail());
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+            // Autenticar usuário com Spring Security
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            loginRequestDto.getEmail(),
+                            loginRequestDto.getPassword()
+                    )
+            );
 
-        // Gerar token
-        String token = tokenProvider.generateToken(authentication);
+            System.out.println("Autenticação bem-sucedida para: " + loginRequestDto.getEmail());
 
-        // Buscar usuário
-        User user = userRepository.findByEmail(loginRequestDto.getEmail())
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        // Retornar resposta
-        return AuthResponseDTO.builder()
-                .token(token)
-                .type("Bearer")
-                .id(user.getId())
-                .name(user.getName())
-                .email(user.getEmail())
-                .build();
+            // Gerar token
+            String token = tokenProvider.generateToken(authentication);
+            System.out.println("Token gerado com sucesso: " + token.substring(0, 10) + "...");
+
+            // Buscar usuário
+            User user = userRepository.findByEmail(loginRequestDto.getEmail())
+                    .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+            System.out.println("Usuário encontrado com ID: " + user.getId());
+
+            // Retornar resposta
+            return AuthResponseDTO.builder()
+                    .token(token)
+                    .type("Bearer")
+                    .id(user.getId())
+                    .name(user.getName())
+                    .email(user.getEmail())
+                    .build();
+        } catch (Exception e) {
+            System.err.println("Erro na autenticação: " + e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
     }
 }
