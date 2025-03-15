@@ -1,18 +1,14 @@
 package com.thiagoleite.GastroHubSolo.presentation.controllers;
 
-import com.thiagoleite.GastroHubSolo.application.dtos.ChangePasswordRequestDTO;
 import com.thiagoleite.GastroHubSolo.domain.entities.User;
-import com.thiagoleite.GastroHubSolo.domain.exceptions.ResourceNotFoundException;
 import com.thiagoleite.GastroHubSolo.domain.usecases.*;
-import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UserController {
     private final CreateUserUseCase createUserUseCase;
     private final UpdateUserUseCase updateUserUseCase;
