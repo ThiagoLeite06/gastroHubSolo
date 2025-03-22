@@ -57,7 +57,7 @@ As migrações serão aplicadas automaticamente ao iniciar a aplicação, criand
 
 A API segue os padrões REST e possui os seguintes endpoints principais:
 
-- **GET /users**: Retorna a lista de usuários cadastrados.
+- **GET /userDomains**: Retorna a lista de usuários cadastrados.
 
 
 > Documentação detalhada poderá ser acessada no Swagger (Work in progress).
