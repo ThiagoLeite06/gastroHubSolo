@@ -11,5 +11,6 @@ public class AuthUserController implements AuthUserControllerImpl {
     @Override
     public AuthResponseDTO execute(LoginRequestDTO loginRequestDTO) {
         private final AuthenticationManager authenticationManager;
+
     }
 }
