@@ -1,4 +1,4 @@
-package com.thiagoleite.GastroHubSolo.infrastructure.security;
+package com.thiagoleite.GastroHubSolo.presentation.security;
 
 import com.thiagoleite.GastroHubSolo.domain.entities.User;
 import com.thiagoleite.GastroHubSolo.domain.repositories.UserRepository;

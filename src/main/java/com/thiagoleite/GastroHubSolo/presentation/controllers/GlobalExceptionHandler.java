@@ -1,6 +1,6 @@
 package com.thiagoleite.GastroHubSolo.presentation.controllers;
 
-import com.thiagoleite.GastroHubSolo.domain.exceptions.AuthenticationException;
+import com.thiagoleite.GastroHubSolo.application.exceptions.AuthenticationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

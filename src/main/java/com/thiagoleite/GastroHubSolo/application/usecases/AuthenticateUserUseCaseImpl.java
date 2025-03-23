@@ -1,13 +1,13 @@
-package com.thiagoleite.GastroHubSolo.application.services;
+package com.thiagoleite.GastroHubSolo.application.usecases;
 
-import com.thiagoleite.GastroHubSolo.application.dtos.AuthResponseDTO;
-import com.thiagoleite.GastroHubSolo.application.dtos.LoginRequestDTO;
+import com.thiagoleite.GastroHubSolo.application.dtos.AuthOutput;
+import com.thiagoleite.GastroHubSolo.application.dtos.AuthInput;
 import com.thiagoleite.GastroHubSolo.domain.entities.User;
 
 import com.thiagoleite.GastroHubSolo.domain.repositories.UserRepository;
 import com.thiagoleite.GastroHubSolo.domain.usecases.AuthenticateUserUseCase;
 
-import com.thiagoleite.GastroHubSolo.infrastructure.security.JwtTokenProvider;
+import com.thiagoleite.GastroHubSolo.presentation.security.JwtTokenProvider;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -28,19 +28,19 @@ public class AuthenticateUserUseCaseImpl implements AuthenticateUserUseCase {
         this.tokenProvider = tokenProvider;
     }
 
-    public AuthResponseDTO execute(LoginRequestDTO loginRequestDto) {
+    public AuthOutput execute(AuthInput authInput) {
         try {
-            System.out.println("Tentando autenticar usuário: " + loginRequestDto.getEmail());
+            System.out.println("Tentando autenticar usuário: " + authInput.getEmail());
 
             // Autenticar usuário com Spring Security
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            loginRequestDto.getEmail(),
-                            loginRequestDto.getPassword()
+                            authInput.getEmail(),
+                            authInput.getPassword()
                     )
             );
 
-            System.out.println("Autenticação bem-sucedida para: " + loginRequestDto.getEmail());
+            System.out.println("Autenticação bem-sucedida para: " + authInput.getEmail());
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -49,13 +49,13 @@ public class AuthenticateUserUseCaseImpl implements AuthenticateUserUseCase {
             System.out.println("Token gerado com sucesso: " + token.substring(0, 10) + "...");
 
             // Buscar usuário
-            User user = userRepository.findByEmail(loginRequestDto.getEmail())
+            User user = userRepository.findByEmail(authInput.getEmail())
                     .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
             System.out.println("Usuário encontrado com ID: " + user.getId());
 
             // Retornar resposta
-            return AuthResponseDTO.builder()
+            return AuthOutput.builder()
                     .token(token)
                     .type("Bearer")
                     .id(user.getId())

@@ -1,4 +1,4 @@
-package com.thiagoleite.GastroHubSolo.application.services;
+package com.thiagoleite.GastroHubSolo.application.usecases;
 
 import com.thiagoleite.GastroHubSolo.domain.entities.UserType;
 import com.thiagoleite.GastroHubSolo.domain.repositories.UserTypeRepository;

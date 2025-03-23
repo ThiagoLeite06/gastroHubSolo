@@ -1,8 +1,8 @@
-package com.thiagoleite.GastroHubSolo.application.services;
+package com.thiagoleite.GastroHubSolo.application.usecases;
 
 import com.thiagoleite.GastroHubSolo.domain.entities.User;
-import com.thiagoleite.GastroHubSolo.domain.exceptions.AuthenticationException;
-import com.thiagoleite.GastroHubSolo.domain.exceptions.ResourceNotFoundException;
+import com.thiagoleite.GastroHubSolo.application.exceptions.AuthenticationException;
+import com.thiagoleite.GastroHubSolo.application.exceptions.ResourceNotFoundException;
 import com.thiagoleite.GastroHubSolo.domain.repositories.UserRepository;
 import com.thiagoleite.GastroHubSolo.domain.usecases.ChangePasswordUseCase;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,7 +34,7 @@ public class ChangePasswordUseCaseImpl implements ChangePasswordUseCase {
 
         // Atualizar para nova senha
         user.setPassword(passwordEncoder.encode(newPassword));
-        user.setLastUpdatedAt(new Date());
+        user.setLastUpdatedAt();
 
         userRepository.save(user);
     }

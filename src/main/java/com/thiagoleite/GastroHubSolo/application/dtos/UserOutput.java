@@ -7,12 +7,13 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class UserResponseDTO {
+
+public class UserOutput {
     private Long id;
     private String name;
     private String email;
     private String role;
     private Date lastUpdatedAt;
     private String address;
-    private UserTypeResponseDTO userType;
+    private UserTypeOutput userType;
 }

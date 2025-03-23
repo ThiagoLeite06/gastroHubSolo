@@ -1,27 +1,26 @@
 package com.thiagoleite.GastroHubSolo.domain.entities;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
-@EqualsAndHashCode
-@Getter
-@Setter
+
 public class UserType {
     private Long id;
     private String name;
-    private Date createdAt;
-    private Date lastUpdatedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime lastUpdatedAt;
 
     public UserType() {
-        this.createdAt = new Date();
-        this.lastUpdatedAt = new Date();
+        this.createdAt = LocalDateTime.now();
+        this.lastUpdatedAt = LocalDateTime.now();
     }
 
     public UserType(String name) {
         this();
         this.name = name;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

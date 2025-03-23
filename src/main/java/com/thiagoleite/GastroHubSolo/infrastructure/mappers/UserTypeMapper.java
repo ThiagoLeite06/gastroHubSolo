@@ -1,7 +1,7 @@
 package com.thiagoleite.GastroHubSolo.infrastructure.mappers;
 
 import com.thiagoleite.GastroHubSolo.application.dtos.CreateUserTypeDTO;
-import com.thiagoleite.GastroHubSolo.application.dtos.UserTypeResponseDTO;
+import com.thiagoleite.GastroHubSolo.application.dtos.UserTypeOutput;
 import com.thiagoleite.GastroHubSolo.domain.entities.UserType;
 import com.thiagoleite.GastroHubSolo.infrastructure.persistence.entities.UserTypeEntity;
 import org.modelmapper.ModelMapper;
@@ -23,8 +23,8 @@ public class UserTypeMapper {
     }
 
     // Domain -> DTO
-    public UserTypeResponseDTO toResponseDTO(UserType userType) {
-        return modelMapper.map(userType, UserTypeResponseDTO.class);
+    public UserTypeOutput toResponseDTO(UserType userType) {
+        return modelMapper.map(userType, UserTypeOutput.class);
     }
 
     // Domain -> Entity

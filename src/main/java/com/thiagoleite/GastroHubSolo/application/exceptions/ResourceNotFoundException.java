@@ -1,4 +1,4 @@
-package com.thiagoleite.GastroHubSolo.domain.exceptions;
+package com.thiagoleite.GastroHubSolo.application.exceptions;
 
 public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException(String message) {
