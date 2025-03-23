@@ -2,7 +2,7 @@ package com.thiagoleite.GastroHubSolo.presentation.controllers;
 
 import com.thiagoleite.GastroHubSolo.application.dtos.CreateUserTypeDTO;
 import com.thiagoleite.GastroHubSolo.application.dtos.UpdateUserTypeDTO;
-import com.thiagoleite.GastroHubSolo.application.dtos.UserTypeResponseDTO;
+import com.thiagoleite.GastroHubSolo.application.dtos.UserTypeOutput;
 import com.thiagoleite.GastroHubSolo.domain.entities.UserType;
 import com.thiagoleite.GastroHubSolo.domain.usecases.CreateUserTypeUseCase;
 import com.thiagoleite.GastroHubSolo.domain.usecases.DeleteUserTypeUseCase;
@@ -38,7 +38,7 @@ public class UserTypeController {
     private UserTypeMapper userTypeMapper;
 
     @PostMapping
-    public ResponseEntity<UserTypeResponseDTO> createUserType(@Valid @RequestBody CreateUserTypeDTO createUserTypeDTO) {
+    public ResponseEntity<UserTypeOutput> createUserType(@Valid @RequestBody CreateUserTypeDTO createUserTypeDTO) {
         // Converter DTO para domínio
         UserType userType = new UserType();
         userType.setName(createUserTypeDTO.getName());
@@ -47,13 +47,13 @@ public class UserTypeController {
         UserType createdUserType = createUserTypeUseCase.execute(userType);
 
         // Converter resultado para DTO de resposta
-        UserTypeResponseDTO responseDTO = userTypeMapper.toResponseDTO(createdUserType);
+        UserTypeOutput responseDTO = userTypeMapper.toResponseDTO(createdUserType);
 
         return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserTypeResponseDTO> updateUserType(
+    public ResponseEntity<UserTypeOutput> updateUserType(
             @PathVariable Long id,
             @Valid @RequestBody UpdateUserTypeDTO updateUserTypeDTO) {
 
@@ -65,7 +65,7 @@ public class UserTypeController {
         UserType updatedUserType = updateUserTypeUseCase.execute(id, userType);
 
         // Converter resultado para DTO de resposta
-        UserTypeResponseDTO responseDTO = userTypeMapper.toResponseDTO(updatedUserType);
+        UserTypeOutput responseDTO = userTypeMapper.toResponseDTO(updatedUserType);
 
         return ResponseEntity.ok(responseDTO);
     }
@@ -77,18 +77,18 @@ public class UserTypeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserTypeResponseDTO> getUserTypeById(@PathVariable Long id) {
+    public ResponseEntity<UserTypeOutput> getUserTypeById(@PathVariable Long id) {
         UserType userType = getUserTypeUseCase.getById(id);
-        UserTypeResponseDTO responseDTO = userTypeMapper.toResponseDTO(userType);
+        UserTypeOutput responseDTO = userTypeMapper.toResponseDTO(userType);
         return ResponseEntity.ok(responseDTO);
     }
 
     @GetMapping
-    public ResponseEntity<List<UserTypeResponseDTO>> getAllUserTypes() {
+    public ResponseEntity<List<UserTypeOutput>> getAllUserTypes() {
         List<UserType> userTypes = getUserTypeUseCase.getAll();
-        List<UserTypeResponseDTO> userTypeResponseDTOs = userTypes.stream()
+        List<UserTypeOutput> userTypeOutputs = userTypes.stream()
                 .map(userTypeMapper::toResponseDTO)
                 .collect(Collectors.toList());
-        return ResponseEntity.ok(userTypeResponseDTOs);
+        return ResponseEntity.ok(userTypeOutputs);
     }
 }

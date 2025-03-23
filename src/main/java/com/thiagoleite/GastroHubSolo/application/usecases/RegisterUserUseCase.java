@@ -1,13 +1,13 @@
-package com.thiagoleite.GastroHubSolo.application.services;
+package com.thiagoleite.GastroHubSolo.application.usecases;
 
 import com.thiagoleite.GastroHubSolo.application.dtos.AuthResponseDTO;
-import com.thiagoleite.GastroHubSolo.application.dtos.CreateUserDTO;
+import com.thiagoleite.GastroHubSolo.application.dtos.CreateUserInput;
 import com.thiagoleite.GastroHubSolo.domain.entities.User;
 import com.thiagoleite.GastroHubSolo.domain.entities.UserType;
-import com.thiagoleite.GastroHubSolo.domain.exceptions.ResourceNotFoundException;
+import com.thiagoleite.GastroHubSolo.application.exceptions.ResourceNotFoundException;
 import com.thiagoleite.GastroHubSolo.domain.repositories.UserRepository;
 import com.thiagoleite.GastroHubSolo.domain.repositories.UserTypeRepository;
-import com.thiagoleite.GastroHubSolo.infrastructure.security.JwtTokenProvider;
+import com.thiagoleite.GastroHubSolo.presentation.security.JwtTokenProvider;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -38,22 +38,22 @@ public class RegisterUserUseCase {
         this.tokenProvider = tokenProvider;
     }
 
-    public AuthResponseDTO execute(CreateUserDTO createUserDTO) {
+    public AuthResponseDTO execute(CreateUserInput createUserInput) {
 
-        if (userRepository.existsByEmail(createUserDTO.getEmail())) {
+        if (userRepository.existsByEmail(createUserInput.getEmail())) {
             throw new RuntimeException("Email já está em uso");
         }
 
         User user = new User();
-        user.setName(createUserDTO.getName());
-        user.setEmail(createUserDTO.getEmail());
-        user.setPassword(passwordEncoder.encode(createUserDTO.getPassword()));
+        user.setName(createUserInput.getName());
+        user.setEmail(createUserInput.getEmail());
+        user.setPassword(passwordEncoder.encode(createUserInput.getPassword()));
         user.setRole("USER");
         user.setLastUpdatedAt(new Date());
-        user.setAddress(createUserDTO.getAddress());
+        user.setAddress(createUserInput.getAddress());
 
-        if (createUserDTO.getUserTypeId() != null) {
-            UserType userType = userTypeRepository.findById(createUserDTO.getUserTypeId())
+        if (createUserInput.getUserTypeId() != null) {
+            UserType userType = userTypeRepository.findById(createUserInput.getUserTypeId())
                     .orElseThrow(() -> new ResourceNotFoundException("Tipo de usuário não encontrado"));
             user.setUserType(userType);
         }
@@ -62,8 +62,8 @@ public class RegisterUserUseCase {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        createUserDTO.getEmail(),
-                        createUserDTO.getPassword()
+                        createUserInput.getEmail(),
+                        createUserInput.getPassword()
                 )
         );
 

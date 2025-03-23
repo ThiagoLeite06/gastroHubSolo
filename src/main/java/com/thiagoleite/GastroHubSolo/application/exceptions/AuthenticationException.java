@@ -1,4 +1,4 @@
-package com.thiagoleite.GastroHubSolo.domain.exceptions;
+package com.thiagoleite.GastroHubSolo.application.exceptions;
 
 public class AuthenticationException extends RuntimeException {
     public AuthenticationException(String message) {

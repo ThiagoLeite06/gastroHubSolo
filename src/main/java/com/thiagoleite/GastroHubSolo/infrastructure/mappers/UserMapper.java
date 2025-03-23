@@ -1,11 +1,8 @@
 package com.thiagoleite.GastroHubSolo.infrastructure.mappers;
 
-import com.thiagoleite.GastroHubSolo.application.dtos.CreateUserDTO;
-import com.thiagoleite.GastroHubSolo.application.dtos.UserResponseDTO;
+import com.thiagoleite.GastroHubSolo.application.dtos.CreateUserInput;
+import com.thiagoleite.GastroHubSolo.application.dtos.CreateUserOutput;
 import com.thiagoleite.GastroHubSolo.domain.entities.User;
-import com.thiagoleite.GastroHubSolo.domain.entities.UserType;
-import com.thiagoleite.GastroHubSolo.domain.exceptions.ResourceNotFoundException;
-import com.thiagoleite.GastroHubSolo.domain.repositories.UserTypeRepository;
 import com.thiagoleite.GastroHubSolo.infrastructure.persistence.entities.UserEntity;
 import com.thiagoleite.GastroHubSolo.infrastructure.persistence.entities.UserTypeEntity;
 import org.modelmapper.ModelMapper;
@@ -22,14 +19,14 @@ public class UserMapper {
     }
 
     // DTO -> Domain
-    public User toUser(CreateUserDTO dto) {
+    public User toUser(CreateUserInput dto) {
         User user = modelMapper.map(dto, User.class);
         return user;
     }
 
     // Domain -> DTO
-    public UserResponseDTO toResponseDTO(User user) {
-        return modelMapper.map(user, UserResponseDTO.class);
+    public CreateUserOutput toResponseDTO(User user) {
+        return modelMapper.map(user, CreateUserOutput.class);
     }
 
     // Domain -> Entity

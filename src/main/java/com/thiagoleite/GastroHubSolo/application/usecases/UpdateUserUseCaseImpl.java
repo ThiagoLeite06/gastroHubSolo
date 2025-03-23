@@ -1,4 +1,4 @@
-package com.thiagoleite.GastroHubSolo.application.services;
+package com.thiagoleite.GastroHubSolo.application.usecases;
 
 import com.thiagoleite.GastroHubSolo.domain.entities.User;
 import com.thiagoleite.GastroHubSolo.domain.repositories.UserRepository;
@@ -26,11 +26,10 @@ public class UpdateUserUseCaseImpl implements UpdateUserUseCase {
         existingUser.setName(user.getName());
         existingUser.setEmail(user.getEmail());
 
-        // Se uma nova senha for fornecida
         if (user.getPassword() != null && !user.getPassword().isEmpty()) {
             existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
         }
-        // Se não, mantém a senha atual
+
         existingUser.setLastUpdatedAt(new Date());
         existingUser.setAddress(user.getAddress());
 

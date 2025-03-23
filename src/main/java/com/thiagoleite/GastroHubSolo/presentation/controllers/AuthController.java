@@ -1,9 +1,9 @@
 package com.thiagoleite.GastroHubSolo.presentation.controllers;
 
 import com.thiagoleite.GastroHubSolo.application.dtos.AuthResponseDTO;
-import com.thiagoleite.GastroHubSolo.application.dtos.CreateUserDTO;
+import com.thiagoleite.GastroHubSolo.application.dtos.CreateUserInput;
 import com.thiagoleite.GastroHubSolo.application.dtos.LoginRequestDTO;
-import com.thiagoleite.GastroHubSolo.application.services.RegisterUserUseCase;
+import com.thiagoleite.GastroHubSolo.application.usecases.RegisterUserUseCase;
 import com.thiagoleite.GastroHubSolo.domain.usecases.AuthenticateUserUseCase;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +31,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AuthResponseDTO> register(@Valid @RequestBody CreateUserDTO createUserDTO) {
-        return ResponseEntity.ok(registerUserUseCase.execute(createUserDTO));
+    public ResponseEntity<AuthResponseDTO> register(@Valid @RequestBody CreateUserInput createUserInput) {
+        return ResponseEntity.ok(registerUserUseCase.execute(createUserInput));
     }
 }

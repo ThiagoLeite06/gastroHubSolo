@@ -1,4 +1,4 @@
-package com.thiagoleite.GastroHubSolo.infrastructure.security;
+package com.thiagoleite.GastroHubSolo.presentation.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

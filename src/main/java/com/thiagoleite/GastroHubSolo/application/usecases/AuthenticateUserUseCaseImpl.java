@@ -1,4 +1,4 @@
-package com.thiagoleite.GastroHubSolo.application.services;
+package com.thiagoleite.GastroHubSolo.application.usecases;
 
 import com.thiagoleite.GastroHubSolo.application.dtos.AuthResponseDTO;
 import com.thiagoleite.GastroHubSolo.application.dtos.LoginRequestDTO;
@@ -7,7 +7,7 @@ import com.thiagoleite.GastroHubSolo.domain.entities.User;
 import com.thiagoleite.GastroHubSolo.domain.repositories.UserRepository;
 import com.thiagoleite.GastroHubSolo.domain.usecases.AuthenticateUserUseCase;
 
-import com.thiagoleite.GastroHubSolo.infrastructure.security.JwtTokenProvider;
+import com.thiagoleite.GastroHubSolo.presentation.security.JwtTokenProvider;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

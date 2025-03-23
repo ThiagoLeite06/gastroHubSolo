@@ -1,4 +1,4 @@
-package com.thiagoleite.GastroHubSolo.application.services;
+package com.thiagoleite.GastroHubSolo.application.usecases;
 
 import com.thiagoleite.GastroHubSolo.domain.repositories.UserRepository;
 import com.thiagoleite.GastroHubSolo.domain.usecases.DeleteUserUseCase;

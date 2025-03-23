@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class UserTypeResponseDTO {
+public class UserTypeOutput {
     private Long id;
     private String name;
     private Date createdAt;

@@ -1,8 +1,9 @@
-package com.thiagoleite.GastroHubSolo.application.services;
+package com.thiagoleite.GastroHubSolo.application.usecases;
 
+import com.thiagoleite.GastroHubSolo.application.dtos.CreateUserInput;
 import com.thiagoleite.GastroHubSolo.domain.entities.User;
 import com.thiagoleite.GastroHubSolo.domain.entities.UserType;
-import com.thiagoleite.GastroHubSolo.domain.exceptions.ResourceNotFoundException;
+import com.thiagoleite.GastroHubSolo.application.exceptions.ResourceNotFoundException;
 import com.thiagoleite.GastroHubSolo.domain.repositories.UserRepository;
 import com.thiagoleite.GastroHubSolo.domain.repositories.UserTypeRepository;
 import com.thiagoleite.GastroHubSolo.domain.usecases.CreateUserUseCase;
@@ -24,9 +25,9 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
     }
 
     @Override
-    public User execute(User user) {
+    public User execute(CreateUserInput user) {
 
-        if (user.getUserType() != null && user.getUserType().getId() != null) {
+        if (user != null && user.getUserType().getId() != null) {
             UserType userType = userTypeRepository.findById(user.getUserType().getId())
                     .orElseThrow(() -> new ResourceNotFoundException("Tipo de usuário não encontrado"));
             user.setUserType(userType);
