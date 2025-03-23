@@ -10,14 +10,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthResponseDTO {
+public class AuthOutput {
     private String token;
     private String type = "Bearer";
     private Long id;
     private String name;
     private String email;
 
-    public AuthResponseDTO(String token, Long id, String name, String email) {
+    public AuthOutput(String token, Long id, String name, String email) {
         this.token = token;
         this.id = id;
         this.name = name;

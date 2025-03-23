@@ -1,7 +1,7 @@
 package com.thiagoleite.GastroHubSolo.infrastructure.mappers;
 
-import com.thiagoleite.GastroHubSolo.application.dtos.CreateUserInput;
-import com.thiagoleite.GastroHubSolo.application.dtos.CreateUserOutput;
+import com.thiagoleite.GastroHubSolo.application.dtos.UserInput;
+import com.thiagoleite.GastroHubSolo.application.dtos.UserOutput;
 import com.thiagoleite.GastroHubSolo.domain.entities.User;
 import com.thiagoleite.GastroHubSolo.infrastructure.persistence.entities.UserEntity;
 import com.thiagoleite.GastroHubSolo.infrastructure.persistence.entities.UserTypeEntity;
@@ -19,14 +19,13 @@ public class UserMapper {
     }
 
     // DTO -> Domain
-    public User toUser(CreateUserInput dto) {
-        User user = modelMapper.map(dto, User.class);
-        return user;
+    public User toUser(UserInput input) {
+        return modelMapper.map(input, User.class);
     }
 
     // Domain -> DTO
-    public CreateUserOutput toResponseDTO(User user) {
-        return modelMapper.map(user, CreateUserOutput.class);
+    public UserOutput toOutput(User user) {
+        return modelMapper.map(user, UserOutput.class);
     }
 
     // Domain -> Entity

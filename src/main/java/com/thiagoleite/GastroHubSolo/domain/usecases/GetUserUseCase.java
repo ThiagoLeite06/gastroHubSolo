@@ -1,10 +1,10 @@
 package com.thiagoleite.GastroHubSolo.domain.usecases;
 
-import com.thiagoleite.GastroHubSolo.domain.entities.User;
+import com.thiagoleite.GastroHubSolo.application.dtos.UserOutput;
 
 import java.util.List;
 
 public interface GetUserUseCase {
-    User getById(Long id);
-    List<User> getAll();
+    UserOutput getById(Long id);
+    List<UserOutput> getAll();
 }

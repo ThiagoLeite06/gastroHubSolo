@@ -1,9 +1,9 @@
 package com.thiagoleite.GastroHubSolo.domain.usecases;
 
-import com.thiagoleite.GastroHubSolo.application.dtos.AuthResponseDTO;
-import com.thiagoleite.GastroHubSolo.application.dtos.LoginRequestDTO;
+import com.thiagoleite.GastroHubSolo.application.dtos.AuthOutput;
+import com.thiagoleite.GastroHubSolo.application.dtos.AuthInput;
 
 public interface AuthenticateUserUseCase {
-    AuthResponseDTO execute(LoginRequestDTO loginRequestDTO);
+    AuthOutput execute(AuthInput authInput);
 }
 

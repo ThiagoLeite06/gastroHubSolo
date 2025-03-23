@@ -8,7 +8,7 @@ import java.util.Date;
 @Getter
 @Setter
 
-public class CreateUserOutput {
+public class UserOutput {
     private Long id;
     private String name;
     private String email;

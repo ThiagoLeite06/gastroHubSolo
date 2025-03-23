@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.Length;
 
 @Getter
 @Setter
-public class ChangePasswordRequestDTO {
+public class ChangePasswordInput {
     @NotBlank(message = "A senha atual é obrigatória")
     private String currentPassword;
 

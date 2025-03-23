@@ -1,37 +1,37 @@
 package com.thiagoleite.GastroHubSolo.application.usecases;
 
+import com.thiagoleite.GastroHubSolo.application.dtos.AuthOutput;
 import com.thiagoleite.GastroHubSolo.application.dtos.UserInput;
-import com.thiagoleite.GastroHubSolo.application.dtos.UserOutput;
+import com.thiagoleite.GastroHubSolo.application.dtos.AuthInput;
 import com.thiagoleite.GastroHubSolo.domain.entities.User;
 import com.thiagoleite.GastroHubSolo.domain.entities.UserType;
 import com.thiagoleite.GastroHubSolo.application.exceptions.ResourceNotFoundException;
 import com.thiagoleite.GastroHubSolo.domain.repositories.UserRepository;
 import com.thiagoleite.GastroHubSolo.domain.repositories.UserTypeRepository;
-import com.thiagoleite.GastroHubSolo.domain.usecases.CreateUserUseCase;
-import com.thiagoleite.GastroHubSolo.infrastructure.mappers.UserMapper;
+import com.thiagoleite.GastroHubSolo.domain.usecases.AuthenticateUserUseCase;
+import com.thiagoleite.GastroHubSolo.domain.usecases.RegisterUserUseCase;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-
 @Service
-public class CreateUserUseCaseImpl implements CreateUserUseCase {
+public class RegisterUserUseCaseImpl implements RegisterUserUseCase {
+
     private final UserRepository userRepository;
     private final UserTypeRepository userTypeRepository;
     private final PasswordEncoder passwordEncoder;
-    private final UserMapper userMapper;
+    private final AuthenticateUserUseCase authenticateUserUseCase;
 
-    public CreateUserUseCaseImpl(UserRepository userRepository,
-                                 UserTypeRepository userTypeRepository,
-                                 PasswordEncoder passwordEncoder,
-                                 UserMapper userMapper) {
+    public RegisterUserUseCaseImpl(UserRepository userRepository,
+                                   UserTypeRepository userTypeRepository,
+                                   PasswordEncoder passwordEncoder,
+                                   AuthenticateUserUseCase authenticateUserUseCase) {
         this.userRepository = userRepository;
         this.userTypeRepository = userTypeRepository;
         this.passwordEncoder = passwordEncoder;
-        this.userMapper = userMapper;
+        this.authenticateUserUseCase = authenticateUserUseCase;
     }
 
-    @Override
-    public UserOutput execute(UserInput userInput) {
+    public AuthOutput execute(UserInput userInput) {
 
         if (userRepository.existsByEmail(userInput.getEmail())) {
             throw new RuntimeException("Email já está em uso");
@@ -51,7 +51,14 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
             user.setUserType(userType);
         }
 
-        User savedUser = userRepository.save(user);
-        return userMapper.toOutput(savedUser);
+        userRepository.save(user);
+
+        // Autenticar o usuário usando o caso de uso apropriado
+        AuthInput authInput = new AuthInput();
+        authInput.setEmail(userInput.getEmail());
+        authInput.setPassword(userInput.getPassword());
+
+        return authenticateUserUseCase.execute(authInput);
     }
+
 }
