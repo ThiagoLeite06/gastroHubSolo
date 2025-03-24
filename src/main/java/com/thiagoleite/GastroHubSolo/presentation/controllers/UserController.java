@@ -4,7 +4,6 @@ import com.thiagoleite.GastroHubSolo.application.dtos.ChangePasswordInput;
 import com.thiagoleite.GastroHubSolo.application.dtos.UserInput;
 import com.thiagoleite.GastroHubSolo.application.dtos.UserOutput;
 import com.thiagoleite.GastroHubSolo.application.dtos.UpdateUserInput;
-import com.thiagoleite.GastroHubSolo.domain.entities.User;
 import com.thiagoleite.GastroHubSolo.domain.usecases.*;
 import com.thiagoleite.GastroHubSolo.infrastructure.mappers.UserMapper;
 import jakarta.validation.Valid;
@@ -12,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/users")
@@ -30,8 +28,7 @@ public class UserController {
             DeleteUserUseCase deleteUserUseCase,
             GetUserUseCase getUserUseCase,
             ChangePasswordUseCase changePasswordUseCase,
-            UserMapper userMapper
-    ) {
+            UserMapper userMapper) {
         this.createUserUseCase = createUserUseCase;
         this.updateUserUseCase = updateUserUseCase;
         this.deleteUserUseCase = deleteUserUseCase;
@@ -42,17 +39,14 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserOutput> createUser(@RequestBody UserInput userInput) {
-        User user = userMapper.toUser(userInput);
-        User createdUser = createUserUseCase.execute(user);
-        UserOutput userOutput = userMapper.toOutput(createdUser);
+        UserOutput userOutput = createUserUseCase.execute(userInput);
         return ResponseEntity.ok(userOutput);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserOutput> updateUser(@PathVariable Long id, @Valid @RequestBody UpdateUserInput updateUserInput) {
-        User user = userMapper.toUser(updateUserInput);
-        User updatedUser = updateUserUseCase.execute(id, user);
-        UserOutput output = userMapper.toOutput(updatedUser);
+    public ResponseEntity<UserOutput> updateUser(@PathVariable Long id,
+            @Valid @RequestBody UpdateUserInput updateUserInput) {
+        UserOutput output = updateUserUseCase.execute(id, updateUserInput);
         return ResponseEntity.ok(output);
     }
 
@@ -64,17 +58,13 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserOutput> getUserById(@PathVariable Long id) {
-        User user = getUserUseCase.getById(id);
-        UserOutput output = userMapper.toOutput(user);
+        UserOutput output = getUserUseCase.getById(id);
         return ResponseEntity.ok(output);
     }
 
     @GetMapping
     public ResponseEntity<List<UserOutput>> getAllUsers() {
-        List<User> users = getUserUseCase.getAll();
-        List<UserOutput> outputs = users.stream()
-                .map(userMapper::toOutput)
-                .collect(Collectors.toList());
+        List<UserOutput> outputs = getUserUseCase.getAll();
         return ResponseEntity.ok(outputs);
     }
 
@@ -82,11 +72,10 @@ public class UserController {
     public ResponseEntity<Void> changePassword(
             @PathVariable Long id,
             @Valid @RequestBody ChangePasswordInput changePasswordInput) {
-            changePasswordUseCase.execute(
+        changePasswordUseCase.execute(
                 id,
                 changePasswordInput.getCurrentPassword(),
-                changePasswordInput.getNewPassword()
-        );
+                changePasswordInput.getNewPassword());
         return ResponseEntity.ok().build();
     }
 }

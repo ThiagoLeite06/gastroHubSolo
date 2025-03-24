@@ -11,7 +11,7 @@ public class TestController {
 
     @GetMapping("/test")
     public ResponseEntity<String> test() {
-        return ResponseEntity.ok("O servidor está funcionando!");
+        return ResponseEntity.ok("OK - O servidor está funcionando!");
     }
 
     @PostMapping("/test")
