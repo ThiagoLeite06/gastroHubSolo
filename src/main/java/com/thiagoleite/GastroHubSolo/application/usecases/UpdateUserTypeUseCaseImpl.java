@@ -5,7 +5,7 @@ import com.thiagoleite.GastroHubSolo.domain.repositories.UserTypeRepository;
 import com.thiagoleite.GastroHubSolo.domain.usecases.UpdateUserTypeUseCase;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Service
 public class UpdateUserTypeUseCaseImpl implements UpdateUserTypeUseCase {
@@ -26,7 +26,7 @@ public class UpdateUserTypeUseCaseImpl implements UpdateUserTypeUseCase {
         }
 
         existingUserType.setName(userType.getName());
-        existingUserType.setLastUpdatedAt(new Date());
+        existingUserType.setLastUpdatedAt(LocalDateTime.now());
 
         return userTypeRepository.save(existingUserType);
     }
