@@ -60,6 +60,14 @@ public class User {
         return userType;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setLastUpdatedAt(LocalDateTime lastUpdatedAt) {
+        this.lastUpdatedAt = lastUpdatedAt;
+    }
+
     public void setName(String name) {
         this.name = name;
         updateLastUpdatedAt();
