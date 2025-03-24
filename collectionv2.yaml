@@ -1,0 +1,742 @@
+type: collection.insomnia.rest/5.0
+name: GastroHubSolo
+meta:
+  id: wrk_02849891fa864f94bad7f5a99dd231e9
+  created: 1741489803732
+  modified: 1741489803732
+collection:
+  - url: "{{ _.baseUrl }}/api/auth/register"
+    name: REGISTER
+    meta:
+      id: req_dbe1c26370b648b694fa98914f0f5991
+      created: 1741489940083
+      modified: 1742056694758
+      isPrivate: false
+      sortKey: -1741489940083
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "name": "Usuário Teste",
+          "email": "teste@example.com",
+          "password": "Senha123",
+          "address": "Rua de Teste, 123",
+        	"userTypeId": 1
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/10.3.1
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ _.baseUrl }}/api/auth/login"
+    name: LOGIN
+    meta:
+      id: req_34793e74cd7c47a3be8f7a69109880f7
+      created: 1741490126631
+      modified: 1742053342256
+      isPrivate: false
+      sortKey: -1741490126631
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "email": "teste@example.com",
+          "password": "Senha123"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/10.3.1
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ baseUrl }}/api/users"
+    name: GET_ALL_USERS
+    meta:
+      id: req_7067fd239f9043259fe7cec0101653ac
+      created: 1741490231298
+      modified: 1742839681157
+      isPrivate: false
+      sortKey: -1741490231298
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/10.3.1
+    authentication:
+      type: bearer
+      token: "{{ _.token }}"
+      disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ baseUrl }}/api/users/1"
+    name: GET_USER_BY_ID
+    meta:
+      id: req_4c1c6a7a2fa44ac7b1502d26ab382444
+      created: 1741490413913
+      modified: 1742836052263
+      isPrivate: false
+      sortKey: -1741490178964.5
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/10.3.1
+    authentication:
+      type: bearer
+      token: "{{ _.token }}"
+      disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ baseUrl }}/api/users/1"
+    name: UPDATE_USER
+    meta:
+      id: req_2cf990e289024e20a4ae5105ce5074f1
+      created: 1741490465693
+      modified: 1742051255983
+      isPrivate: false
+      sortKey: -1741490152797.75
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "name": "Nome Atualizado",
+          "email": "atualizado@example.com",
+          "address": "Novo Endereço, 456"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/10.3.1
+    authentication:
+      type: bearer
+      token: "{{ _.token }}"
+      disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ baseUrl }}/api/users/1/change-password"
+    name: UPDATE_PASSWORD
+    meta:
+      id: req_2a4a464e6b5f44afa51c71ea6555a84e
+      created: 1741490535086
+      modified: 1742051263476
+      isPrivate: false
+      sortKey: -1741490139714.375
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "currentPassword": "Senha1233",
+          "newPassword": "NovaSenha123"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/10.3.1
+    authentication:
+      type: bearer
+      token: "{{ _.token }}"
+      disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ baseUrl }}/api/users/1"
+    name: DELETE_USER
+    meta:
+      id: req_5b7c383fc4dd414c9b38ba6ec98a32d3
+      created: 1741490724113
+      modified: 1742051247236
+      isPrivate: false
+      sortKey: -1741490165881.125
+    method: DELETE
+    headers:
+      - name: User-Agent
+        value: insomnia/10.3.1
+    authentication:
+      type: bearer
+      token: "{{ _.token }}"
+      disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ _.baseUrl }}/test"
+    name: TEST
+    meta:
+      id: req_24fe3846dbdc4b009b9982a62969473a
+      created: 1742835523271
+      modified: 1742839274913
+      isPrivate: false
+      sortKey: -1741490033357
+    method: GET
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "email": "teste@example.com",
+          "password": "Senha123"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/10.3.1
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ _.baseUrl }}/api/restaurants"
+    name: GET_RESTAURANTS
+    meta:
+      id: req_1a3c4106fc7649a08f2ad1c5368c3623
+      created: 1742836022640
+      modified: 1742836026531
+      isPrivate: false
+      sortKey: -1741489986720
+    method: GET
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "email": "teste@example.com",
+          "password": "Senha123"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/10.3.1
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ baseUrl }}/api/user-types"
+    name: GET_USERS_TYPE
+    meta:
+      id: req_a52634c1d11747f1979b34db79f30d77
+      created: 1742839094949
+      modified: 1742839103529
+      isPrivate: false
+      sortKey: -1741490172422.8125
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/10.3.1
+    authentication:
+      type: bearer
+      token: "{{ _.token }}"
+      disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ baseUrl }}/api/user-types/1"
+    name: GET_USER_TYPE_BY_ID
+    meta:
+      id: req_cc55990049ed4251b1a71a49fbce310a
+      created: 1742839136998
+      modified: 1742839146206
+      isPrivate: false
+      sortKey: -1741490175693.6562
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/10.3.1
+    authentication:
+      type: bearer
+      token: "{{ _.token }}"
+      disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ _.baseUrl }}/api/user-types"
+    name: REGISTER_USER_TYPE
+    meta:
+      id: req_1a7f1d3564a34974b43a48f2111dec0b
+      created: 1742839177851
+      modified: 1742839623383
+      isPrivate: false
+      sortKey: -1741489940033
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "name": "Entregador Drone"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/10.3.1
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ baseUrl }}/api/user-types/1"
+    name: UPDATE_USER_TYPE
+    meta:
+      id: req_4773ca7d3e7540deae753cb4b1cf3d21
+      created: 1742839577846
+      modified: 1742839596839
+      isPrivate: false
+      sortKey: -1741490146256.0625
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "name": "Entregador Premium"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/10.3.1
+    authentication:
+      type: bearer
+      token: "{{ _.token }}"
+      disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ baseUrl }}/api/user-types/4"
+    name: DELETE_USER_TYPE
+    meta:
+      id: req_f672a5290d1b43f8bc5857dfe8e4e4fc
+      created: 1742839651498
+      modified: 1742839663546
+      isPrivate: false
+      sortKey: -1741490159339.4375
+    method: DELETE
+    headers:
+      - name: User-Agent
+        value: insomnia/10.3.1
+    authentication:
+      type: bearer
+      token: "{{ _.token }}"
+      disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ baseUrl }}/api/restaurants"
+    name: GET_ALL_RESTAURANTS
+    meta:
+      id: req_9cbf04c48806494f9bcca4bb0b09d6ab
+      created: 1742839713289
+      modified: 1742839720561
+      isPrivate: false
+      sortKey: -1741490205131.25
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/10.3.1
+    authentication:
+      type: bearer
+      token: "{{ _.token }}"
+      disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ baseUrl }}/api/restaurants/1"
+    name: GET_RESTAURANT_BY_ID
+    meta:
+      id: req_3459e9d2b3ff4ac2b1fb97b94577461a
+      created: 1742839756134
+      modified: 1742839764621
+      isPrivate: false
+      sortKey: -1741490177329.0781
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/10.3.1
+    authentication:
+      type: bearer
+      token: "{{ _.token }}"
+      disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ baseUrl }}/api/restaurants/owner/1"
+    name: GET_RESTAURANT_BY_OWNER
+    meta:
+      id: req_a1caba228ce8498d8b3a329f90135f5e
+      created: 1742839796662
+      modified: 1742839806882
+      isPrivate: false
+      sortKey: -1741490178146.789
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/10.3.1
+    authentication:
+      type: bearer
+      token: "{{ _.token }}"
+      disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ _.baseUrl }}/api/restaurants"
+    name: REGISTER_RESTAURANT
+    meta:
+      id: req_9b54c0f09cbf49a0add4761ee700cd63
+      created: 1742839843665
+      modified: 1742839858629
+      isPrivate: false
+      sortKey: -1741489939983
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "name": "Restaurante Teste",
+          "address": "Rua dos Testes, 789",
+          "cuisineType": "Contemporânea",
+          "operatingHours": "Seg-Sex: 11h-15h, 18h-22h",
+          "ownerId": 1
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/10.3.1
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ baseUrl }}/api/restaurants/1"
+    name: UPDATE_RESTAURANT
+    meta:
+      id: req_1782649c3dc948c4871202f246f85b76
+      created: 1742839933077
+      modified: 1742839954404
+      isPrivate: false
+      sortKey: -1741490142985.2188
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "name": "Restaurante Teste Atualizado",
+          "address": "Rua dos Testes, 789",
+          "cuisineType": "Fusion",
+          "operatingHours": "Seg-Dom: 11h-23h",
+          "ownerId": 1
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/10.3.1
+    authentication:
+      type: bearer
+      token: "{{ _.token }}"
+      disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ baseUrl }}/api/restaurants/1"
+    name: DELETE_RESTAURANT
+    meta:
+      id: req_c2535ae5be604935825a030c13b71e7b
+      created: 1742839972970
+      modified: 1742840009819
+      isPrivate: false
+      sortKey: -1741490162610.2812
+    method: DELETE
+    headers:
+      - name: User-Agent
+        value: insomnia/10.3.1
+    authentication:
+      type: bearer
+      token: "{{ _.token }}"
+      disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ baseUrl }}/api/menu-items"
+    name: GET_ALL_MENU
+    meta:
+      id: req_3e9439da2b1e4055a577827cf12bb91b
+      created: 1742840053602
+      modified: 1742840063561
+      isPrivate: false
+      sortKey: -1741490218214.625
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/10.3.1
+    authentication:
+      type: bearer
+      token: "{{ _.token }}"
+      disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ baseUrl }}/api/menu-items/1"
+    name: GET_MENU_BY_ID
+    meta:
+      id: req_7966fa17856b44d6badb8f9af0429d16
+      created: 1742840095778
+      modified: 1742840103627
+      isPrivate: false
+      sortKey: -1741490174058.2344
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/10.3.1
+    authentication:
+      type: bearer
+      token: "{{ _.token }}"
+      disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ baseUrl }}/api/menu-items/restaurant/1"
+    name: GET_MENU_BY_RESTAURANT
+    meta:
+      id: req_393bfed18ca24c56a74fc4c5ee55a7c5
+      created: 1742840131392
+      modified: 1742840139312
+      isPrivate: false
+      sortKey: -1741490224756.3125
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/10.3.1
+    authentication:
+      type: bearer
+      token: "{{ _.token }}"
+      disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ _.baseUrl }}/api/menu-items"
+    name: REGISTER_MENU
+    meta:
+      id: req_1fb123ffc62346be8b2da4e9f09c8c46
+      created: 1742840166507
+      modified: 1742840178862
+      isPrivate: false
+      sortKey: -1741489939933
+    method: POST
+    body:
+      mimeType: application/json
+      text: >-
+        {
+          "name": "Prato Teste",
+          "description": "Descrição do prato de teste com ingredientes especiais",
+          "price": 49.90,
+          "availableOnlyInRestaurant": false,
+          "photoPath": "/images/pratos/teste.jpg",
+          "restaurantId": 1
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/10.3.1
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ baseUrl }}/api/menu-items/1"
+    name: UPDATE_MENU_RESTAURANT_ITEM
+    meta:
+      id: req_46ced3758679427d8975eb072ededafd
+      created: 1742840212785
+      modified: 1742840231193
+      isPrivate: false
+      sortKey: -1741490141349.7969
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "name": "Prato Teste Atualizado",
+          "description": "Nova descrição do prato com ingredientes premium",
+          "price": 59.90,
+          "availableOnlyInRestaurant": true,
+          "photoPath": "/images/pratos/teste_atualizado.jpg"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/10.3.1
+    authentication:
+      type: bearer
+      token: "{{ _.token }}"
+      disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: "{{ baseUrl }}/api/menu-items/1"
+    name: DELETE_MENU_ITEM
+    meta:
+      id: req_49ad8b69eee24f78b72b413841a8ae2d
+      created: 1742840251467
+      modified: 1742840256110
+      isPrivate: false
+      sortKey: -1741490156068.5938
+    method: DELETE
+    headers:
+      - name: User-Agent
+        value: insomnia/10.3.1
+    authentication:
+      type: bearer
+      token: "{{ _.token }}"
+      disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_f1649aaa87c9924cab7388552c1e1d9a77d75efb
+    created: 1741489803736
+    modified: 1741489803736
+environments:
+  name: Base Environment
+  meta:
+    id: env_f1649aaa87c9924cab7388552c1e1d9a77d75efb
+    created: 1741489803734
+    modified: 1742835727854
+    isPrivate: false
+  data:
+    baseUrl: http://localhost:8080
+    token: eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ0ZXN0ZUBleGFtcGxlLmNvbSIsImlhdCI6MTc0MjgzNTY5NSwiZXhwIjoxNzQyOTIyMDk1fQ.NV_mTezuO1TnPc9KDD-NHa3_kUSLKiLbCsYW4pg342iRatCaeomOYOsUtada-mXT
