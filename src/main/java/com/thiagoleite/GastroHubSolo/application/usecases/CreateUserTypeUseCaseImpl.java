@@ -5,7 +5,7 @@ import com.thiagoleite.GastroHubSolo.domain.repositories.UserTypeRepository;
 import com.thiagoleite.GastroHubSolo.domain.usecases.CreateUserTypeUseCase;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Service
 public class CreateUserTypeUseCaseImpl implements CreateUserTypeUseCase {
@@ -21,8 +21,8 @@ public class CreateUserTypeUseCaseImpl implements CreateUserTypeUseCase {
             throw new RuntimeException("Tipo de usuário já existe");
         }
 
-        userType.setCreatedAt(new Date());
-        userType.setLastUpdatedAt(new Date());
+        userType.setCreatedAt(LocalDateTime.now());
+        userType.setLastUpdatedAt(LocalDateTime.now());
         return userTypeRepository.save(userType);
     }
 }
