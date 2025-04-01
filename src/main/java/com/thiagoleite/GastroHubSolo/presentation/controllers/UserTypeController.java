@@ -9,6 +9,8 @@ import com.thiagoleite.GastroHubSolo.domain.usecases.DeleteUserTypeUseCase;
 import com.thiagoleite.GastroHubSolo.domain.usecases.GetUserTypeUseCase;
 import com.thiagoleite.GastroHubSolo.domain.usecases.UpdateUserTypeUseCase;
 import com.thiagoleite.GastroHubSolo.infrastructure.mappers.UserTypeMapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/user-types")
+@Tag(name = "User-Type",description = "User type Controller")
 public class UserTypeController {
 
     @Autowired
@@ -38,6 +41,7 @@ public class UserTypeController {
     private UserTypeMapper userTypeMapper;
 
     @PostMapping
+    @Operation(description = "Endpoint para criar o User Type", summary = "Este é um resumo para criar o User Type")
     public ResponseEntity<UserTypeOutput> createUserType(@Valid @RequestBody CreateUserTypeDTO createUserTypeDTO) {
         // Converter DTO para domínio
         UserType userType = new UserType();
@@ -53,6 +57,7 @@ public class UserTypeController {
     }
 
     @PutMapping("/{id}")
+    @Operation(description = "Endpoint para atualizar o User Type", summary = "Este é um resumo para atualizar o User Type")
     public ResponseEntity<UserTypeOutput> updateUserType(
             @PathVariable Long id,
             @Valid @RequestBody UpdateUserTypeDTO updateUserTypeDTO) {
@@ -71,12 +76,14 @@ public class UserTypeController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(description = "Endpoint para deletar o User Type", summary = "Este é um resumo para deletar o User Type")
     public ResponseEntity<Void> deleteUserType(@PathVariable Long id) {
         deleteUserTypeUseCase.execute(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
+    @Operation(description = "Endpoint para listar o User Type pelo id", summary = "Este é um resumo para listar o User Type pelo id")
     public ResponseEntity<UserTypeOutput> getUserTypeById(@PathVariable Long id) {
         UserType userType = getUserTypeUseCase.getById(id);
         UserTypeOutput responseDTO = userTypeMapper.toResponseDTO(userType);
@@ -84,6 +91,7 @@ public class UserTypeController {
     }
 
     @GetMapping
+    @Operation(description = "Endpoint para listar todos os Users Type", summary = "Este é um resumo para listar todos os Users Type")
     public ResponseEntity<List<UserTypeOutput>> getAllUserTypes() {
         List<UserType> userTypes = getUserTypeUseCase.getAll();
         List<UserTypeOutput> userTypeOutputs = userTypes.stream()
