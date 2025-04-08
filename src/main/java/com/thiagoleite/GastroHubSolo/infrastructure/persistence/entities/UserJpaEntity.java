@@ -1,16 +1,17 @@
 package com.thiagoleite.GastroHubSolo.infrastructure.persistence.entities;
 
+import com.thiagoleite.GastroHubSolo.domain.entities.UserTypeEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "users")
-public class UserEntity {
+public class UserJpaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,15 +28,15 @@ public class UserEntity {
     private String role;
 
     @Column(name = "last_updated_at")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastUpdatedAt;
+    private LocalDateTime lastUpdatedAt;
 
     @Column(nullable = false, length = 200)
     private String address;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_type_id")
-    private UserTypeEntity userType;
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "user_type_id")
+//    private UserTypeEntity userType;
+    @Enumerated(EnumType.STRING)
+    private UserTypeEnum userType;
 
-    public UserEntity() {}
 }

@@ -29,7 +29,7 @@ public class UserTypeEntity {
     private Date lastUpdatedAt;
 
     @OneToMany(mappedBy = "userType")
-    private Set<UserEntity> users = new HashSet<>();
+    private Set<UserJpaEntity> users = new HashSet<>();
 
     public UserTypeEntity() {
         this.createdAt = new Date();
