@@ -1,42 +1,43 @@
 package com.thiagoleite.GastroHubSolo.presentation.controllers;
 
-import com.thiagoleite.GastroHubSolo.application.dtos.AuthOutput;
-import com.thiagoleite.GastroHubSolo.application.dtos.UserInput;
-import com.thiagoleite.GastroHubSolo.application.dtos.AuthInput;
-import com.thiagoleite.GastroHubSolo.application.usecases.RegisterUserUseCaseImpl;
-import com.thiagoleite.GastroHubSolo.domain.usecases.AuthenticateUserUseCase;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
+import com.thiagoleite.GastroHubSolo.domain.entities.User;
+import com.thiagoleite.GastroHubSolo.domain.usecases.LoginUserUseCase;
+import com.thiagoleite.GastroHubSolo.domain.usecases.RegisterUserUseCase;
+import com.thiagoleite.GastroHubSolo.presentation.dtos.LoginRequest;
+import com.thiagoleite.GastroHubSolo.presentation.dtos.LoginResponse;
+import com.thiagoleite.GastroHubSolo.presentation.mappers.UserMapper;
+import com.thiagoleite.GastroHubSolo.presentation.dtos.RegisterRequest;
+import com.thiagoleite.GastroHubSolo.presentation.dtos.RegisterResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/auth")
-@Tag(name = "Auth", description = "Auth Controller")
+@RequiredArgsConstructor
 public class AuthController {
 
-    private final AuthenticateUserUseCase authenticateUserUseCase;
-    private final RegisterUserUseCaseImpl registerUserUseCaseImpl;
+    private final RegisterUserUseCase registerUserUseCase;
+    private final LoginUserUseCase loginUserUseCase;
+    private final UserMapper userMapper;
 
-    public AuthController(AuthenticateUserUseCase authenticateUserUseCase,
-                          RegisterUserUseCaseImpl registerUserUseCaseImpl) {
-        this.authenticateUserUseCase = authenticateUserUseCase;
-        this.registerUserUseCaseImpl = registerUserUseCaseImpl;
+    @PostMapping("/register")
+    public ResponseEntity<RegisterResponse> register(@Valid @RequestBody RegisterRequest request) {
+        User user = userMapper.toUser(request);
+        User registeredUser = registerUserUseCase.execute(user);
+        RegisterResponse response = userMapper.toRegisterResponse(registeredUser);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
-    @Operation(description = "Endpoint para logar", summary = "Este é um resumo para logar")
-    public ResponseEntity<AuthOutput> login(@Valid @RequestBody AuthInput authInput) {
-        return ResponseEntity.ok(authenticateUserUseCase.execute(authInput));
-    }
-
-    @PostMapping("/register")
-    @Operation(description = "Endpoint para registrar", summary = "Este é um resumo para registrar")
-    public ResponseEntity<AuthOutput> register(@Valid @RequestBody UserInput userInput) {
-        return ResponseEntity.ok(registerUserUseCaseImpl.execute(userInput));
+    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
+        String token = loginUserUseCase.execute(request.getEmail(), request.getPassword());
+        return ResponseEntity.ok(new LoginResponse(token));
     }
 }
