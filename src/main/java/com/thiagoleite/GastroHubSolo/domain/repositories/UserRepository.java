@@ -1,15 +1,15 @@
 package com.thiagoleite.GastroHubSolo.domain.repositories;
 
+import org.springframework.stereotype.Repository;
 import com.thiagoleite.GastroHubSolo.domain.entities.User;
 
-import java.util.List;
 import java.util.Optional;
 
+
+@Repository
 public interface UserRepository {
+    boolean existsByEmail(String email);
     User save(User user);
     Optional<User> findById(Long id);
-    List<User> findAll();
-    void deleteById(Long id);
     Optional<User> findByEmail(String email);
-    boolean existsByEmail(String email);
 }

@@ -1,8 +1,7 @@
 package com.thiagoleite.GastroHubSolo.domain.usecases;
 
-import com.thiagoleite.GastroHubSolo.application.dtos.AuthOutput;
-import com.thiagoleite.GastroHubSolo.application.dtos.UserInput;
+import com.thiagoleite.GastroHubSolo.domain.entities.User;
 
 public interface RegisterUserUseCase {
-    AuthOutput execute(UserInput userInput);
+    User execute(User user);
 }
