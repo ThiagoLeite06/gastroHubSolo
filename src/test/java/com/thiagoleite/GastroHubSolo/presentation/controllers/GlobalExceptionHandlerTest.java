@@ -1,6 +1,7 @@
 package com.thiagoleite.GastroHubSolo.presentation.controllers;
 
 import com.thiagoleite.GastroHubSolo.application.exceptions.AuthenticationException;
+import com.thiagoleite.GastroHubSolo.presentation.exceptions.GlobalExceptionHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

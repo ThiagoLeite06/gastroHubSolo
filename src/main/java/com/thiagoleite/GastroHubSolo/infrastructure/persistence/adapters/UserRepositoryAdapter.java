@@ -39,16 +39,16 @@ public class UserRepositoryAdapter implements UserRepository {
     }
 
     private UserJpaEntity mapToJpaEntity(User user) {
-        return UserJpaEntity.builder()
-                .id(user.getId())
-                .name(user.getName())
-                .email(user.getEmail())
-                .password(user.getPassword())
-                .role(user.getRole())
-                .lastUpdatedAt(user.getLastUpdatedAt())
-                .address(user.getAddress())
-                .userType(user.getUserType())
-                .build();
+        UserJpaEntity entity = new UserJpaEntity();
+        entity.setId(user.getId());
+        entity.setName(user.getName());
+        entity.setEmail(user.getEmail());
+        entity.setPassword(user.getPassword());
+        entity.setRole(user.getRole());
+        entity.setLastUpdatedAt(user.getLastUpdatedAt());
+        entity.setAddress(user.getAddress());
+//        entity.setUserType(user.getUserType());
+        return entity;
     }
 
     private User mapToDomainEntity(UserJpaEntity jpaEntity) {
@@ -60,7 +60,7 @@ public class UserRepositoryAdapter implements UserRepository {
                 .role(jpaEntity.getRole())
                 .lastUpdatedAt(jpaEntity.getLastUpdatedAt())
                 .address(jpaEntity.getAddress())
-                .userType(jpaEntity.getUserType())
+//                .userType(jpaEntity.getUserType())
                 .build();
     }
 }

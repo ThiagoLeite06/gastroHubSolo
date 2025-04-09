@@ -1,7 +1,8 @@
 package com.thiagoleite.GastroHubSolo.application.services;
 
 import com.thiagoleite.GastroHubSolo.domain.usecases.LoginUserUseCase;
-import com.thiagoleite.GastroHubSolo.presentation.security.JwtTokenProvider;
+
+import com.thiagoleite.GastroHubSolo.infrastructure.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

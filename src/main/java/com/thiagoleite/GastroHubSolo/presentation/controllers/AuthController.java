@@ -9,6 +9,7 @@ import com.thiagoleite.GastroHubSolo.presentation.mappers.UserMapper;
 import com.thiagoleite.GastroHubSolo.presentation.dtos.RegisterRequest;
 import com.thiagoleite.GastroHubSolo.presentation.dtos.RegisterResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,7 @@ import jakarta.validation.Valid;
 @RequiredArgsConstructor
 public class AuthController {
 
+    @Qualifier("registerUserService")
     private final RegisterUserUseCase registerUserUseCase;
     private final LoginUserUseCase loginUserUseCase;
     private final UserMapper userMapper;
